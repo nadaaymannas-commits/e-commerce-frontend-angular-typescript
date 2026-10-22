@@ -1,0 +1,137 @@
+<div class="container mt-5 mb-5">
+  <h2 class="mb-4 text-uppercase fw-bold text-center">Checkout</h2>
+
+  <div class="row">
+    <div class="col-md-7">
+      <div class="card shadow-sm border-0 p-4 mb-4">
+        <h4 class="fw-bold mb-3">Shipping Address</h4>
+        
+        <form #checkoutForm="ngForm">
+          <div class="row g-3">
+            
+            <div class="col-md-6">
+              <label class="form-label">Governorate <span class="text-danger">*</span></label>
+              <input 
+                type="text" 
+                class="form-control" 
+                [class.is-invalid]="governorate.invalid && governorate.dirty"
+                name="governorate"
+                [(ngModel)]="shippingAddress.governorate" 
+                #governorate="ngModel"
+                required
+                placeholder="e.g. Cairo">
+              @if (governorate.invalid && governorate.dirty) {
+                <div class="invalid-feedback d-block">Governorate is required.</div>
+              }
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">City <span class="text-danger">*</span></label>
+              <input 
+                type="text" 
+                class="form-control" 
+                [class.is-invalid]="city.invalid && city.dirty"
+                name="city"
+                [(ngModel)]="shippingAddress.city" 
+                #city="ngModel"
+                required
+                placeholder="e.g. Nasr City">
+              @if (city.invalid && city.dirty) {
+                <div class="invalid-feedback d-block">City is required.</div>
+              }
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Street <span class="text-danger">*</span></label>
+              <input 
+                type="text" 
+                class="form-control" 
+                [class.is-invalid]="street.invalid && street.dirty"
+                name="street"
+                [(ngModel)]="shippingAddress.street" 
+                #street="ngModel"
+                required
+                placeholder="Street name">
+              @if (street.invalid && street.dirty) {
+                <div class="invalid-feedback d-block">Street is required.</div>
+              }
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Building <span class="text-danger">*</span></label>
+              <input 
+                type="text" 
+                class="form-control" 
+                [class.is-invalid]="building.invalid && building.dirty"
+                name="building"
+                [(ngModel)]="shippingAddress.building" 
+                #building="ngModel"
+                required
+                placeholder="Building No.">
+              @if (building.invalid && building.dirty) {
+                <div class="invalid-feedback d-block">Building is required.</div>
+              }
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Floor (Optional)</label>
+              <input type="text" class="form-control" name="floor" [(ngModel)]="shippingAddress.floor">
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Apartment (Optional)</label>
+              <input type="text" class="form-control" name="apartment" [(ngModel)]="shippingAddress.apartment">
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Phone Number <span class="text-danger">*</span></label>
+              <input 
+                type="text" 
+                class="form-control" 
+                [class.is-invalid]="phone.invalid && phone.dirty"
+                name="phone"
+                [(ngModel)]="shippingAddress.phone" 
+                #phone="ngModel"
+                required
+                pattern="^01[0-9]{9}$"
+                placeholder="01xxxxxxxxx">
+              @if (phone.invalid && phone.dirty) {
+                <div class="invalid-feedback d-block">
+                  @if (phone.errors?.['required']) { Phone is required. }
+                  @if (phone.errors?.['pattern']) { Phone must be a valid 11-digit Egyptian number. }
+                </div>
+              }
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-5">
+      <div class="card shadow-sm border-0 p-4">
+        <h4 class="fw-bold mb-3">Order Summary</h4>
+        
+        @for (item of cartItems; track item.product._id) {
+          <div class="d-flex justify-content-between mb-2">
+            <span>{{ item.product.name }} (x{{ item.quantity }})</span>
+            <span>{{ item.product.price * item.quantity }} EGP</span>
+          </div>
+        }
+        
+        <hr>
+        <div class="d-flex justify-content-between mb-4">
+          <strong>Total</strong>
+          <strong>{{ total }} EGP</strong>
+        </div>
+
+        <button 
+          class="btn btn-dark w-100 py-3 text-uppercase fw-bold" 
+          (click)="placeOrder(checkoutForm)" 
+          [disabled]="isLoading">
+          {{ isLoading ? 'Processing...' : 'Confirm Order' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

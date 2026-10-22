@@ -1,0 +1,92 @@
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <h3 class="fw-bold mb-4 text-center">My Profile</h3>
+
+          @if (isLoading) {
+            <p class="text-center">Loading...</p>
+          } @else {
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-control" [(ngModel)]="user.name">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" [(ngModel)]="user.email">
+            </div>
+            <button class="btn btn-dark w-100" (click)="updateProfile()">Update Profile</button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<div class="container mt-5 mb-5">
+  <div class="row">
+    <div class="col-md-5 mb-4">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <h3 class="fw-bold mb-4 text-center">My Profile</h3>
+
+          @if (isLoading) {
+            <p class="text-center">Loading...</p>
+          } @else {
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-control" [(ngModel)]="user.name">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" [(ngModel)]="user.email">
+            </div>
+            <button class="btn btn-dark w-100" (click)="updateProfile()">Update Profile</button>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-7">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <h3 class="fw-bold mb-4 text-center">My Orders</h3>
+          
+          @if (orders.length === 0) {
+            <p class="text-center text-muted">You haven't placed any orders yet.</p>
+          } @else {
+            <div class="table-responsive">
+              <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (order of orders; track order._id) {
+                    <tr>
+                      <td>{{ order._id | slice:0:8 }}...</td>
+                      <td>{{ order.totalPrice }} EGP</td>
+                      <td>
+                        <span class="badge" 
+                          [class.bg-warning]="order.status === 'pending'" 
+                          [class.bg-info]="order.status === 'shipped'" 
+                          [class.bg-success]="order.status === 'delivered' || order.status === 'received'"
+                          [class.bg-danger]="order.status === 'canceled' || order.status === 'rejected'">
+                          {{ order.status | uppercase }}
+                        </span>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

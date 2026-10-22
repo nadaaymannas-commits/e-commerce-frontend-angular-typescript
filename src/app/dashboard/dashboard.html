@@ -1,0 +1,31 @@
+<div class="container mt-4 mb-5">
+  <div class="bg-dark text-white p-4 rounded shadow-sm mb-4 d-flex justify-content-between align-items-center">
+    <h2 class="mb-0 fw-bold">Admin Dashboard</h2>
+    <a routerLink="/home" class="btn btn-outline-light btn-sm">Back to Store</a>
+  </div>
+
+  <ul class="nav nav-tabs mb-4">
+    <li class="nav-item">
+      <a routerLink="users" routerLinkActive="active" class="nav-link fw-bold">Users</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="categories" routerLinkActive="active" class="nav-link fw-bold">Categories</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="subcategories" routerLinkActive="active" class="nav-link fw-bold">SubCategories</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="products" routerLinkActive="active" class="nav-link fw-bold">Products</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="orders" routerLinkActive="active" class="nav-link fw-bold">Orders</a>
+    </li>
+    <li class="nav-item">
+  <a routerLink="testimonials" routerLinkActive="active" class="nav-link fw-bold">Testimonials</a>
+</li>
+  </ul>
+
+  <div class="bg-white p-4 rounded shadow-sm">
+    <router-outlet></router-outlet>
+  </div>
+</div>

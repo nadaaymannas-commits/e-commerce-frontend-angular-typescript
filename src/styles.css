@@ -1,0 +1,112 @@
+/* ==================== Fonts ==================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* ==================== CSS Variables ==================== */
+:root {
+  --color-black: #1a1a1a;
+  --color-white: #ffffff;
+  --color-gray-light: #f5f5f5;
+  --color-gray-medium: #e0e0e0;
+  --color-gray-text: #757575;
+  --color-accent: #e30613;
+  --color-accent-hover: #b80510;
+  --font-main: 'Poppins', 'Segoe UI', Tahoma, sans-serif;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --radius: 4px;
+  --transition: all 0.25s ease;
+}
+
+/* ==================== Base ==================== */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-black);
+  background-color: var(--color-white);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ==================== Bootstrap Overrides ==================== */
+.container {
+  max-width: 1280px;
+}
+
+.btn {
+  font-family: var(--font-main);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+
+.btn-dark {
+  background-color: var(--color-black);
+  border-color: var(--color-black);
+}
+
+.btn-dark:hover {
+  background-color: #333;
+  border-color: #333;
+}
+
+.btn-outline-dark {
+  color: var(--color-black);
+  border-color: var(--color-black);
+}
+
+.btn-outline-dark:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+}
+
+.form-control {
+  font-family: var(--font-main);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-gray-medium);
+  padding: 10px 14px;
+}
+
+.form-control:focus {
+  border-color: var(--color-black);
+  box-shadow: 0 0 0 0.2rem rgba(26, 26, 26, 0.1);
+}
+
+/* ==================== Utilities ==================== */
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.text-muted {
+  color: var(--color-gray-text) !important;
+}
+.layout-content {
+  min-height: calc(100vh - 200px); /* بيزق الـ Footer لتحت */
+}

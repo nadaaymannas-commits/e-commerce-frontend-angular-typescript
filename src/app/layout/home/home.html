@@ -1,0 +1,45 @@
+<section class="hero">
+  <div class="hero-overlay">
+    <h1 class="hero-title">New Season Arrivals</h1>
+    <p class="hero-subtitle">Discover the latest trends for every occasion</p>
+    <a routerLink="/product-list" class="btn btn-dark btn-lg px-4 py-2">Shop Now</a>
+  </div>
+</section>
+
+<section class="categories-strip">
+  <div class="container">
+    <div class="row g-3 justify-content-center">
+      @for (cat of categories(); track cat._id) {
+        <div class="col-6 col-md-3">
+          <a [routerLink]="['/product-list']" [queryParams]="{ category: cat._id }" class="category-item">
+            {{ cat.name }}
+          </a>
+        </div>
+      } @empty {
+        <p class="text-center text-muted py-3">No categories available.</p>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="featured">
+  <div class="container">
+    <h2 class="section-title">Featured Products</h2>
+
+    <div class="row g-4">
+      @for (product of products(); track product._id) {
+        <div class="col-6 col-md-4 col-lg-3">
+          <app-product [myProduct]="product"></app-product>
+        </div>
+      } @empty {
+        <div class="col-12">
+          <p class="text-center text-muted py-5">No products available right now.</p>
+        </div>
+      }
+    </div>
+
+    <div class="text-center mt-5">
+      <a routerLink="/product-list" class="btn btn-outline-dark btn-lg px-4">View All Products</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,61 @@
+<div class="card shadow-sm border-0">
+  <div class="card-body">
+    <h4 class="fw-bold mb-4">Manage Orders</h4>
+    
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Details</th>
+            <th>Change Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (order of orders; track order._id) {
+            <tr>
+              <td>{{ order._id | slice:0:8 }}...</td>
+              <td>{{ order.user?.name || 'N/A' }}</td>
+              <td>{{ order.totalPrice }} EGP</td>
+              <td>
+                <span class="badge" 
+                  [class.bg-warning]="order.status === 'pending'" 
+                  [class.bg-info]="order.status === 'shipped'" 
+                  [class.bg-success]="order.status === 'delivered' || order.status === 'received'"
+                  [class.bg-danger]="order.status === 'canceled' || order.status === 'rejected'">
+                  {{ order.status | uppercase }}
+                </span>
+              </td>
+              <td>
+                <details>
+                  <summary class="text-primary" style="cursor: pointer;">View Items</summary>
+                  <ul class="mt-2">
+                    @for (item of order.items; track item.product) {
+                      <li>{{ item.name }} (x{{ item.quantity }}) - {{ item.price }} EGP</li>
+                    }
+                  </ul>
+                  <small class="text-muted d-block mt-2">Address: {{ order.shippingAddress.governorate }}, {{ order.shippingAddress.city }}</small>
+                </details>
+              </td>
+              <td>
+                <select class="form-select form-select-sm" (change)="changeStatus(order._id, $any($event.target).value)" [disabled]="order.status === 'canceled' || order.status === 'rejected' || order.status === 'received'">
+                  <option value="">Select Status</option>
+                  @for (status of allowedStatuses; track status) {
+                    <option [value]="status">{{ status | uppercase }}</option>
+                  }
+                </select>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6" class="text-center text-muted py-3">No orders found.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

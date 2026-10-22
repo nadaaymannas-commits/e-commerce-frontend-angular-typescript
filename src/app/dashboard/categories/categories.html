@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-md-4 mb-4">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="fw-bold mb-3">Add New Category</h5>
+        <div class="mb-3">
+          <label class="form-label">Category Name</label>
+          <input type="text" class="form-control" [(ngModel)]="newCategoryName" placeholder="e.g. Men">
+        </div>
+        <button class="btn btn-dark w-100" (click)="addCategory()">Add Category</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="fw-bold mb-3">All Categories</h5>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead class="table-dark">
+              <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (cat of categories; track cat._id) {
+                <tr>
+                  <td>{{ cat.name }}</td>
+                  <td>
+                    <span class="badge" [class.bg-success]="cat.isActive && !cat.isDeleted" [class.bg-danger]="!cat.isActive || cat.isDeleted">
+                      {{ cat.isDeleted ? 'Deleted' : (cat.isActive ? 'Active' : 'Inactive') }}
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-danger" (click)="deleteCategory(cat._id)" [disabled]="cat.isDeleted">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="3" class="text-center text-muted py-3">No categories found.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

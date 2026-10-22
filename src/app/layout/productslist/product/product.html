@@ -1,0 +1,10 @@
+<div class="card product-card border-0 h-100" [routerLink]="'/product-list/' + myProduct.slug">
+  <div class="image-wrapper">
+    <img [src]="staticURL + myProduct.imgURL" class="card-img-top" [alt]="myProduct.name">
+    <div class="quick-view">Quick View</div>
+  </div>
+  <div class="card-body px-2">
+    <h6 class="card-title product-name mb-1">{{ myProduct.name }}</h6>
+    <p class="card-text product-price mb-0">{{ myProduct.price }} EGP</p>
+  </div>
+</div>

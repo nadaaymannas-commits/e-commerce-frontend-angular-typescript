@@ -1,0 +1,52 @@
+<div class="card shadow-sm border-0">
+  <div class="card-body">
+    <h4 class="fw-bold mb-4">Manage Testimonials</h4>
+    
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>User</th>
+            <th>Product</th>
+            <th>Rating</th>
+            <th>Comment</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (t of testimonials; track t._id) {
+            <tr>
+              <td>{{ t.user?.name }}</td>
+              <td>{{ t.product?.name }}</td>
+              <td>
+                @for (star of [1,2,3,4,5]; track $index) {
+                  <span [class.text-warning]="star <= t.rating">★</span>
+                }
+              </td>
+              <td>{{ t.comment }}</td>
+              <td>
+                <span class="badge" 
+                  [class.bg-warning]="t.status === 'pending'" 
+                  [class.bg-success]="t.status === 'approved'"
+                  [class.bg-danger]="t.status === 'rejected'">
+                  {{ t.status | uppercase }}
+                </span>
+              </td>
+              <td>
+                @if (t.status === 'pending') {
+                  <button class="btn btn-sm btn-success me-1" (click)="changeStatus(t._id, 'approved')">Approve</button>
+                  <button class="btn btn-sm btn-danger" (click)="changeStatus(t._id, 'rejected')">Reject</button>
+                }
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6" class="text-center text-muted py-3">No testimonials found.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

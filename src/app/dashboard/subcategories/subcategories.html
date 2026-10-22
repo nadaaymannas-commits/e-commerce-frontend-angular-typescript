@@ -1,0 +1,70 @@
+<div class="row">
+  <!-- إضافة SubCategory جديدة -->
+  <div class="col-md-4 mb-4">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="fw-bold mb-3">Add New SubCategory</h5>
+        
+        <div class="mb-3">
+          <label class="form-label">Parent Category</label>
+          <select class="form-select" [(ngModel)]="selectedCategoryId">
+            <option value="">Select Category</option>
+            @for (cat of categories; track cat._id) {
+              <option [value]="cat._id">{{ cat.name }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">SubCategory Name</label>
+          <input type="text" class="form-control" [(ngModel)]="newSubCategoryName" placeholder="e.g. T-Shirts">
+        </div>
+
+        <button class="btn btn-dark w-100" (click)="addSubCategory()">Add SubCategory</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- جدول الـ SubCategories -->
+  <div class="col-md-8">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="fw-bold mb-3">All SubCategories</h5>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead class="table-dark">
+              <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (sub of subCategories; track sub._id) {
+                <tr>
+                  <td>{{ sub.name }}</td>
+                  <td>{{ sub.category?.name || 'N/A' }}</td>
+                  <td>
+                    <span class="badge" [class.bg-success]="sub.isActive && !sub.isDeleted" [class.bg-danger]="!sub.isActive || sub.isDeleted">
+                      {{ sub.isDeleted ? 'Deleted' : (sub.isActive ? 'Active' : 'Inactive') }}
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-danger" (click)="deleteSubCategory(sub._id)" [disabled]="sub.isDeleted">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="4" class="text-center text-muted py-3">No subcategories found.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
