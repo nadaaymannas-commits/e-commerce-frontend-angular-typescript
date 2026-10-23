@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../core/services/product.service';
 import { CategoryService } from '../../core/services/category.services';
 import { SubCategoryService } from '../../core/services/subcategory.service';
+
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -81,14 +82,15 @@ export class Products implements OnInit {
     }
 
     const formData = new FormData();
-formData.append('name', this.newProduct.name);
-formData.append('desc', this.newProduct.desc);
-formData.append('price', String(this.newProduct.price || 0));
-formData.append('stock', String(this.newProduct.stock || 0));
-formData.append('category', this.newProduct.category);
-formData.append('subCategory', this.newProduct.subCategory);
-formData.append('gender', this.newProduct.gender);
-formData.append('imgURL', this.selectedFile);
+    formData.append('name', this.newProduct.name);
+    formData.append('desc', this.newProduct.desc);
+    formData.append('price', String(this.newProduct.price || 0));
+    formData.append('stock', String(this.newProduct.stock || 0));
+    formData.append('category', this.newProduct.category);
+    formData.append('subCategory', this.newProduct.subCategory);
+    formData.append('gender', this.newProduct.gender);
+    formData.append('imgURL', this.selectedFile);
+
     this._productService.addProduct(formData).subscribe({
       next: () => {
         alert('Product added successfully!');
@@ -111,5 +113,18 @@ formData.append('imgURL', this.selectedFile);
   resetForm() {
     this.newProduct = { name: '', desc: '', price: null, stock: null, category: '', subCategory: '', gender: 'men' };
     this.selectedFile = null;
+  }
+
+  updatePrice(prod: any) {
+    const newPrice = prompt('Enter new price:', prod.price);
+    if (newPrice && !isNaN(Number(newPrice))) {
+      this._productService.updateProductPrice(prod._id, Number(newPrice)).subscribe({
+        next: () => {
+          alert('Price updated successfully!');
+          this.loadProducts();
+        },
+        error: (err: any) => alert(err.error?.message || 'Error updating price')
+      });
+    }
   }
 }

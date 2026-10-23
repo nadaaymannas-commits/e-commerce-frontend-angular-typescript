@@ -26,11 +26,12 @@ export class Header implements OnInit, OnDestroy {
   private _subs = new Subscription();
 
   ngOnInit(): void {
-    this._subs.add(
-      this._authService.getUserData().subscribe((data) => {
-        this.userName = data ? data.name : '';
-      })
-    );
+this._subs.add(
+  this._authService.getUserData().subscribe((data) => {
+    this.userName = data ? data.name : '';
+    this._cartService.refreshCart(); 
+  })
+);
 
     this._subs.add(
       this._categoryService.getAllCategories().subscribe((res: any) => {

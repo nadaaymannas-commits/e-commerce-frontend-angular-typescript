@@ -18,4 +18,7 @@ export class TestimonialService {
   updateTestimonialStatus(id: string, status: string) {
     return this._http.patch(this._apiURL + '/' + id + '/status', { status });
   }
+  createTestimonial(data: { product: string, rating: number, comment: string }) {
+    return this._http.post(this._apiURL, data);
+  }
 }

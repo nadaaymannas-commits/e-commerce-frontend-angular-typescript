@@ -47,4 +47,7 @@ getAdminProducts() {
   deleteProduct(id: string) {
     return this._http.delete(this._apiURL + '/' + id);
   }
+updateProductPrice(id: string, price: number) {
+  return this._http.patch(this._apiURL + '/' + id + '/price', { price });
+}
 }

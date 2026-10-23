@@ -1,5 +1,4 @@
 <div class="row">
-  <!-- فورم إضافة منتج -->
   <div class="col-md-4 mb-4">
     <div class="card shadow-sm border-0">
       <div class="card-body">
@@ -65,7 +64,6 @@
     </div>
   </div>
 
-  <!-- جدول المنتجات -->
   <div class="col-md-8">
     <div class="card shadow-sm border-0">
       <div class="card-body">
@@ -85,10 +83,25 @@
               @for (prod of products; track prod._id) {
                 <tr>
                   <td>
-<img [src]="'http://localhost:3000' + prod.imgURL" alt="" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">                  </td>
+                    <img [src]="'http://localhost:3000' + prod.imgURL" alt="" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">
+                  </td>
                   <td>{{ prod.name }}</td>
-                  <td>{{ prod.price }} EGP</td>
-                  <td>{{ prod.stock }}</td>
+<td>
+  {{ prod.price }} EGP
+  <button class="btn btn-sm btn-link text-primary p-0 ms-2" (click)="updatePrice(prod)">
+    editit
+  </button>
+</td>                  <td>
+                    @if (prod.stock <= 3 && prod.stock > 0) {
+                      <span class="badge bg-danger p-2">
+                        {{ prod.stock }} Left
+                      </span>
+                    } @else if (prod.stock === 0) {
+                      <span class="badge bg-dark p-2">Out of Stock</span>
+                    } @else {
+                      <span class="badge bg-success p-2">{{ prod.stock }}</span>
+                    }
+                  </td>
                   <td>
                     <button class="btn btn-sm btn-outline-danger" (click)="deleteProduct(prod._id)" [disabled]="prod.isDeleted">
                       Delete

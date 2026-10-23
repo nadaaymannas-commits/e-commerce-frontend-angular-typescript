@@ -41,5 +41,30 @@
     <div class="text-center mt-5">
       <a routerLink="/product-list" class="btn btn-outline-dark btn-lg px-4">View All Products</a>
     </div>
+    <!-- قسم آراء العملاء -->
+@if (testimonials().length > 0) {
+  <section class="testimonials-section py-5 bg-light mt-5 rounded">
+    <div class="container">
+      <h2 class="section-title text-center mb-4">What Our Customers Say</h2>
+      <div class="row g-4 justify-content-center">
+        @for (t of testimonials(); track t._id) {
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm p-3">
+              <div class="card-body text-center">
+                <div class="text-warning fs-4 mb-2">
+                  @for (star of [1,2,3,4,5]; track $index) {
+                    <span [class.text-muted]="star > t.rating">★</span>
+                  }
+                </div>
+                <p class="fst-italic text-muted">"{{ t.comment }}"</p>
+                <h6 class="fw-bold mb-0 mt-3">- {{ t.user?.name }}</h6>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+}
   </div>
 </section>
